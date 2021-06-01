@@ -1,0 +1,17 @@
+Package: ZerosignR
+Version: 0.01
+Date: 2021-06-01
+Title: SVAR identification by zero-sign restrictions
+Authors@R: c(person("Artur", "Zmanovskii", role = c("aut", "cre"),
+                     email = "anzmanovskii@gmail.com"))
+Author: Artur Zmanovskii [aut, cre]
+Maintainer: Artur Zmanovskii <anzmanovskii@gmail.com>
+Depends: R (>= 3.1.0), vars, BVAR, MASS, expm
+Description: This package implements (Arias et al. 2018)
+    identification scheme by imposing zero and sign 
+    restrictions to IRFs.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1.9001
