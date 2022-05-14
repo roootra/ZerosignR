@@ -79,6 +79,7 @@ zerosign_restr_ala_arias <- function(irfs, B, Sigma, zero_sign_matrix, tries,
     #check for signs
     Q_minus = -1*Q
     flag_fail = FALSE
+    #TBD: check and *-1 columns instead of whole matrix
     for(j in 1:nvars){
         S_j = diag(S[,j])
         S_j = t(S_j[,(colSums(S_j) != 0)])

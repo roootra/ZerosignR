@@ -9,7 +9,7 @@ zerosign_restr(model, restr_matrix, LR = FALSE, tries = 500, ...)
 
 ## S3 method for class 'array'
 zerosign_restr(B, Sigma, p, n, draws, restr_matrix, LR = FALSE,
-              has_const = TRUE, tries = 300, varnames = NULL)
+              has_const = TRUE, tries = 300, var_names = NULL)
 }
 \arguments{
 \item{model}{Estimated (B)VAR model. \code{varest} from \strong{vars} for frequentist
@@ -44,7 +44,9 @@ The first dimension denotes draw, other two are related to the covariance matrix
 
 \item{has_const}{\emph{optional} Boolean. Whether constant is present in \code{B}}
 
-\item{varnames}{\emph{optional} Vector of strings (characters) --- names of variables.}
+\item{var_names}{\emph{optional} Vector of strings (characters) --- names of variables.}
+
+\item{shock_names}{\emph{optional} Vector of strings (characters) --- names of shocks.}
 }
 \value{
 \code{ZerosignR} object with accepted Q matrices.

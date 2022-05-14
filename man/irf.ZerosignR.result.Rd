@@ -24,7 +24,7 @@ the 2-nd one is \emph{nvars*(horizon+contemporaneous+LR)} --- row-stacked IRFs f
 periods, starting from the earliest one, the 3-rd one is for shocks;
 \item \code{median_irf}, pointwise-median IRF, aggregated for Q-matrices;
 \item \code{quantile_irf}, IRF sample quantiles for band;
-\item \code{ctm_irf}, IRF from closest-to-median model, L2 norm-based;
+\item \code{ctm_irf}, IRF from closest-to-median model, Euclidean distance;
 \item \eqn{\ldots}{...}, auxillary constants.
 }
 }
@@ -35,10 +35,10 @@ set of matrices Q --- orthonormal matrices that satisfy zero and sign restrictio
 \details{
 Arias et al. (2018) show that structural shock IRF for period \eqn{h}{h} can be calculated in
 matrix form as follows (see definitions for \eqn{J}{J} and \eqn{F}{F} in the original article):
-\deqn{L_h(A_0, A_+) = \left( A_0^{-1} J' F^h J \right)'.}{Lh(A0, A+) = (A0 * J' * F^h * J)'.}
+\deqn{L_h(A_0, A_+) = \left( A_0^{-1} J^{'} F^h J \right)^{'}.}{Lh(A0, A+) = (A0 * J' * F^h * J)'.}
 
 The special case is for long-run IRF, which is given as:
-\deqn{L_\infty(A_0, A_+) = \left( A^'_0 - \sum_{l=1}^{p} A^'_l \right)^{-1}.}{Linf(A0, A+) = (A0' - ∑ A_l')^(-1).}
+\deqn{L_\infty(A_0, A_+) = \left( A^{'}_0 - \sum_{l=1}^{p} A^{'}_l \right)^{-1}.}{Linf(A0, A+) = (A0' - ∑ A_l')^(-1).}
 
 In order to obtain structural IRF conditional on orthonormal matrix Q, that satisfies
 zero and sign restrictions, one has just multiply IRF matrix by Q:

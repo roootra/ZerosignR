@@ -10,6 +10,7 @@ zerosign_restr_ala_arias(
   Sigma,
   zero_sign_matrix,
   tries,
+  negative_Q = TRUE,
   perm_Q = FALSE
 )
 }
@@ -29,6 +30,8 @@ this matrix in order to set zero restriction to the \emph{i}-th variable respons
 the shock \emph{j}.}
 
 \item{tries}{Number of tries of random orthonormal matrix generation}
+
+\item{negative_Q}{(default = \code{TRUE}). Whether also check negative Q.}
 
 \item{perm_Q}{NOT IMPLEMENTED. Whether to account for permutation of matrix \emph{Q}
 columns to increase method's efficiency.}

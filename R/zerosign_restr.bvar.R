@@ -1,4 +1,5 @@
-zerosign_restr.bvar <- function(bvar_model, restr_matrix, LR=FALSE, tries=300){
+zerosign_restr.bvar <- function(bvar_model, restr_matrix, LR=FALSE, tries=300,
+                                shock_names=NULL){
   #B, Sigma, p, n, draws, sr_sign_matrix, has_const=TRUE,
   B = bvar_model$beta
   Sigma = bvar_model$sigma
@@ -7,7 +8,7 @@ zerosign_restr.bvar <- function(bvar_model, restr_matrix, LR=FALSE, tries=300){
   draws = bvar_model$meta$n_save
   has_const = bvar_model$meta$K - bvar_model$meta$M
   restr_matrix_stacked = NULL
-  varnames <- bvar_model$variables
+  var_names <- bvar_model$variables
   SR = TRUE
   for(period in 1:dim(restr_matrix)[3]){
     restr_matrix_stacked = rbind(restr_matrix_stacked, restr_matrix[,,period])
@@ -38,9 +39,15 @@ zerosign_restr.bvar <- function(bvar_model, restr_matrix, LR=FALSE, tries=300){
   if(length(satisfying_models) == 0){
     cat("No staisfying models are found!")
   }
+  # create shock_names
+  n_anon_shocks = bvar_model$meta$M - length(shock_names)
+  for(i in 1:n_anon_shocks){
+    shock_names <- c(shock_names, sprintf('Shock %d', i))
+  }
   toreturn <- list("models" = satisfying_models)
   class(toreturn) <- "ZerosignR.result"
-  toreturn$meta$varnames <- varnames
+  toreturn$meta$var_names <- var_names
+  toreturn$meta$shock_names <- shock_names
   toreturn$meta$modelclass <- "bvar"
   toreturn$meta$lags <- bvar_model$meta$lags
   toreturn$meta$nvars <- bvar_model$meta$M

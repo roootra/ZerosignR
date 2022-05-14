@@ -1,5 +1,5 @@
 zerosign_restr.default <- function(B, Sigma, p, n, draws, restr_matrix, LR=FALSE,
-                                   has_const=TRUE, tries=300, varnames=NULL){
+                                   has_const=TRUE, tries=300, var_names=NULL, shock_names=NULL){
   restr_matrix_stacked = NULL
   for(period in 1:dim(restr_matrix)[3]){
     restr_matrix_stacked = rbind(restr_matrix_stacked, restr_matrix[,,period])
@@ -35,9 +35,20 @@ zerosign_restr.default <- function(B, Sigma, p, n, draws, restr_matrix, LR=FALSE
   if(length(satisfying_models) == 0){
     cat("No staisfying models are found!")
   }
+  # create var_names
+  n_anon_vars = bvar_model$meta$M - length(var_names)
+  for(i in 1:n_anon_vars){
+    var_names <- c(var_names, sprintf('Variable %d', i))
+  }
+  # create shock_names
+  n_anon_shocks = bvar_model$meta$M - length(shock_names)
+  for(i in 1:n_anon_shocks){
+    shock_names <- c(shock_names, sprintf('Shock %d', i))
+  }
   toreturn <- list("models" = satisfying_models)
   class(toreturn) <- "ZerosignR.result"
-  toreturn$meta$varnames <- varnames
+  toreturn$meta$var_names <- var_names
+  toreturn$meta$shock_names <- shock_names
   toreturn$meta$modelclass <- "bvar"
   toreturn$meta$restr_matrix <- restr_matrix
   toreturn$meta$lags <- bvar_model$meta$lags

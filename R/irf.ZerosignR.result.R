@@ -33,10 +33,10 @@ irf.ZerosignR.result <- function(zerosignr, horizon=0, LR=FALSE, quantil=0.05){
   #'@details
   #'Arias et al. (2018) show that structural shock IRF for period \eqn{h}{h} can be calculated in
   #'matrix form as follows (see definitions for \eqn{J}{J} and \eqn{F}{F} in the original article):
-  #'\deqn{L_h(A_0, A_+) = \left( A_0^{-1} J' F^h J \right)'.}{Lh(A0, A+) = (A0 * J' * F^h * J)'.}
+  #'\deqn{L_h(A_0, A_+) = \left( A_0^{-1} J^{'} F^h J \right)^{'}.}{Lh(A0, A+) = (A0 * J' * F^h * J)'.}
   #'
   #'The special case is for long-run IRF, which is given as:
-  #'\deqn{L_\infty(A_0, A_+) = \left( A^'_0 - \sum_{l=1}^{p} A^'_l \right)^{-1}.}{Linf(A0, A+) = (A0' - ∑ A_l')^(-1).}
+  #'\deqn{L_\infty(A_0, A_+) = \left( A^{'}_0 - \sum_{l=1}^{p} A^{'}_l \right)^{-1}.}{Linf(A0, A+) = (A0' - ∑ A_l')^(-1).}
   #'
   #'In order to obtain structural IRF conditional on orthonormal matrix Q, that satisfies
   #'zero and sign restrictions, one has just multiply IRF matrix by Q:
@@ -53,7 +53,8 @@ irf.ZerosignR.result <- function(zerosignr, horizon=0, LR=FALSE, quantil=0.05){
   n = zerosignr$meta$nvars
   p = zerosignr$meta$lags
   accepted = zerosignr$meta$accepted
-  varnames <- zerosignr$meta$varnames
+  var_names <- zerosignr$meta$var_names
+  shock_names <- zerosignr$meta$shock_names
   horizon_matrix <- ifelse(LR, horizon + 2, horizon + 1)
   struc_irfs = array(dim=c(accepted, horizon_matrix*n, n))
   for(i in 1:accepted){
@@ -83,7 +84,8 @@ irf.ZerosignR.result <- function(zerosignr, horizon=0, LR=FALSE, quantil=0.05){
   transformed_irfs$n <- n
   transformed_irfs$p <- p
   transformed_irfs$modelclass <- zerosignr$meta$modelclass
-  transformed_irfs$varnames <- varnames
+  transformed_irfs$var_names <- var_names
+  transformed_irfs$shock_names <- shock_names
   transformed_irfs$restr_matrix <- zerosignr$meta$restr_matrix
   transformed_irfs$quantile <- quantil
   class(transformed_irfs) <- "ZerosignR.irf"

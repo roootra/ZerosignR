@@ -13,7 +13,7 @@ zerosign_restr <- function(model=NULL, restr_matrix, LR=FALSE, tries=500, ...){
   #'
   #'## S3 method for class 'array'
   #'zerosign_restr(B, Sigma, p, n, draws, restr_matrix, LR = FALSE,
-  #'               has_const = TRUE, tries = 300, varnames = NULL)
+  #'               has_const = TRUE, tries = 300, var_names = NULL)
   #'
   #'@param model Estimated (B)VAR model. \code{varest} from \strong{vars} for frequentist
   #'and \code{bvar} from \strong{BVAR} for bayesian approach are supported. If \code{NULL}
@@ -37,7 +37,8 @@ zerosign_restr <- function(model=NULL, restr_matrix, LR=FALSE, tries=500, ...){
   #'@param n \emph{optional} Number of variables.
   #'@param draws \emph{optional} Number of draws (1 if frequentist model).
   #'@param has_const \emph{optional} Boolean. Whether constant is present in \code{B}
-  #'@param varnames \emph{optional} Vector of strings (characters) --- names of variables.
+  #'@param var_names \emph{optional} Vector of strings (characters) --- names of variables.
+  #'@param shock_names \emph{optional} Vector of strings (characters) --- names of shocks.
   #'@return \code{ZerosignR} object with accepted Q matrices.
   #'
   #'@note

@@ -17,33 +17,34 @@ var_model <- VAR(data_to_model, p = 1, type = "const")
 #Zero and sign matrix
 horizon <- 2
 nvars <- NCOL(data_to_model)
-signs <- array(NA, dim=c(nvars, nvars, horizon))
+signs_ru <- array(NA, dim=c(nvars, nvars, horizon))
 #supply shocks
-signs[1,1,1:2] <- 1 #self
-signs[2,1,1:2] <- -1 #inflation
-signs[5,1,1] <- 0 #oil
+signs_ru[1,1,1:2] <- 1 #self
+signs_ru[2,1,1:2] <- -1 #inflation
+signs_ru[5,1,1] <- 0 #oil
 #demand shocks
-signs[2,2,1:2] <- 1 #self
-signs[1,2,1:2] <- 1 #gdp
-signs[3,2,1:2] <- 1 #intrate
-#signs[4,2,1:2] <- -1 #exrate (versatile)
-signs[5,2,1] <- 0 #oil
+signs_ru[2,2,1:2] <- 1 #self
+signs_ru[1,2,1:2] <- 1 #gdp
+signs_ru[3,2,1:2] <- 1 #intrate
+signs_ru[4,2,1:2] <- -1 #exrate (versatile)
+signs_ru[5,2,1] <- 0 #oil
 #monetary shocks
-signs[3,3,1:2] <- 1 #self
-signs[1,3,1:2] <- -1 #gdp
-signs[2,3,1:2] <- -1 #inflation
-signs[4,3,1:2] <- -1 #exrate
-signs[5,3,1] <- 0 #oil
+signs_ru[3,3,1:2] <- 1 #self
+signs_ru[1,3,1:2] <- -1 #gdp
+signs_ru[2,3,1:2] <- -1 #inflation
+signs_ru[4,3,1:2] <- -1 #exrate
+signs_ru[5,3,1] <- 0 #oil
 #exrate shocks
-signs[4,4,1:2] <- 1 #self
-signs[2,4,1:2] <- 1 #inflation
-signs[3,4,1:2] <- 1 #monetary
-signs[5,4,1] <- 0 #oil
+signs_ru[4,4,1:2] <- 1 #self
+signs_ru[2,4,1:2] <- 1 #inflation
+signs_ru[3,4,1:2] <- 1 #monetary
+signs_ru[5,4,1] <- 0 #oil
 #oil shocks
-signs[5,5,1:2] <- 1 #self
-signs[4,5,1:2] <- -1 #exrate
+signs_ru[5,5,1:2] <- 1 #self
+signs_ru[4,5,1:2] <- -1 #exrate
 
 zerosign_restr_bvar <- zerosign_restr.bvar(bvar_model,
-                                           restr_matrix = signs,
+                                           restr_matrix = signs_ru,
                                            LR = FALSE, tries = 1000)
 irf_zerosign_bvar <- irf.ZerosignR.result(zerosign_restr_bvar, horizon = 10)
+plot.ZerosignR.irf(irf_zerosign_bvar, plot_ci = TRUE)
